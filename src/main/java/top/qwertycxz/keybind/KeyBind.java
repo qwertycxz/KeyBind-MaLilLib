@@ -1,11 +1,11 @@
 package top.qwertycxz.keybind;
 
-import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
-public class KeyBind implements DedicatedServerModInitializer {
+public class KeyBind implements ClientModInitializer {
 
 	@Override
-	public void onInitializeServer() {
-		throw new UnsupportedOperationException("Unimplemented method 'onInitializeServer'");
+	public void onInitializeClient() {
+		throw new UnsupportedOperationException("Unimplemented");
 	}
 }

@@ -23,11 +23,11 @@ loom {
 		}
 	}
 	runs {
-		server {
+		client {
 			vmArgs '-Xmx1G'
 		}
+		remove server
 	}
-	serverOnlyMinecraftJar()
 }
 
 publishing {

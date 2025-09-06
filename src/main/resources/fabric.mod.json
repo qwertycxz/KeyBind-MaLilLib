@@ -24,11 +24,11 @@
 	},
 	"description": "$description",
 	"entrypoints": {
-		"server": [
+		"client": [
 			"top.qwertycxz.keybind.KeyBind"
 		]
 	},
-	"environment": "server",
+	"environment": "client",
 	"icon": "icon.png",
 	"id": "$id",
 	"license": "$license",
