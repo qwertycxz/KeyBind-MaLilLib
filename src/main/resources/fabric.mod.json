@@ -1,0 +1,37 @@
+{
+	"$schema": "https://www.schemastore.org/fabric.mod",
+	"authors": [
+		{
+			"contact": {
+				"GitHub": "$github",
+				"Ko-fi": "$kofi",
+				"homepage": "$homepage"
+			},
+			"name": "$developer"
+		}
+	],
+	"contact": {
+		"Central": "TBD",
+		"Modrinth": "$modrinth",
+		"issues": "$issue",
+		"sources": "$scm"
+	},
+	"custom": {
+		"mc-publish": {
+			"curseforge": 1307729,
+			"modrinth": "eCT6lHG4"
+		}
+	},
+	"description": "$description",
+	"entrypoints": {
+		"server": [
+			"top.qwertycxz.keybind.KeyBind"
+		]
+	},
+	"environment": "server",
+	"icon": "icon.png",
+	"id": "$id",
+	"license": "$license",
+	"name": "$name",
+	"version": "$version"
+}
