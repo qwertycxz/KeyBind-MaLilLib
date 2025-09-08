@@ -11,7 +11,7 @@
 		}
 	],
 	"contact": {
-		"Central": "TBD",
+		"Central": "$central",
 		"Modrinth": "$modrinth",
 		"issues": "$issue",
 		"sources": "$scm"
@@ -26,6 +26,9 @@
 	"entrypoints": {
 		"client": [
 			"top.qwertycxz.keybind.KeyBind"
+		],
+		"modmenu": [
+			"top.qwertycxz.keybind.ModMenu"
 		]
 	},
 	"environment": "client",

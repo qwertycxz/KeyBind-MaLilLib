@@ -6,6 +6,17 @@ plugins {
 	id 'net.raphimc.class-token-replacer' version '1.1.7'
 }
 
+repositories {
+	maven {
+		name = 'Modrinth'
+		url = 'https://api.modrinth.com/maven'
+	}
+	maven {
+		name = 'Terraformers'
+		url = 'https://maven.terraformersmc.com/releases'
+	}
+}
+
 androidGitVersion {
 	prefix = 'v'
 }
@@ -13,6 +24,8 @@ androidGitVersion {
 dependencies {
 	mappings loom.officialMojangMappings()
 	minecraft 'com.mojang:minecraft:1.21.8'
+	modImplementation 'com.terraformersmc:modmenu:13.0.3'
+	modImplementation 'maven.modrinth:malilib:0.25.2'
 	modImplementation 'net.fabricmc:fabric-loader:0.17.2'
 }
 
@@ -30,59 +43,67 @@ loom {
 	}
 }
 
+tasks.withType JavaCompile configureEach {
+	options.deprecation = true
+	options.encoding = 'UTF-8'
+	options.listFiles = true
+	// options.release = 8
+}
+
+var DEVELOPER_LOWERCASE = 'qwertycxz'
+var DEVELOPER_NAME = 'qwerty吃小庄'
+var DEVELOPER_SCM = "github.com/${DEVELOPER_LOWERCASE}"
+var DEVELOPER_GITHUB = "https://${DEVELOPER_SCM}"
+var MOD_LOWERCASE = 'keybind-malilib'
+var MOD_CAPITAL = 'KeyBind-MaLiLib'
+var MOD_NAME = 'KeyBind through MaLiLib'
+var MOD_SCM = "${DEVELOPER_SCM}/${MOD_CAPITAL}"
+var MOD_GITHUB = "${DEVELOPER_GITHUB}/${MOD_CAPITAL}"
+
 publishing {
 	repositories {
 		maven {
 			name = 'GitHub'
-			url = 'https://maven.pkg.github.com/qwertycxz/KeyBind-MaLilLib'
+			url = "https://maven.pkg.github.com/${DEVELOPER_LOWERCASE}/${MOD_CAPITAL}"
 			credentials PasswordCredentials
 		}
 	}
 }
 
-tasks.withType JavaCompile configureEach {
-	options.deprecation = true
-	options.encoding = 'UTF-8'
-	options.listFiles = true
-	// options.release = 15
-}
-
-var ID = 'keybind-malilib'
 sourceSets {
 	main {
 		classTokenReplacer {
-			property '$id', ID
+			property '$lowercase', MOD_LOWERCASE
+			property '$capital', MOD_CAPITAL
+			property '$name', MOD_NAME
 			replaceInPlace = true
 		}
 	}
 }
 
 var DESCRIPTION = 'TBD'
-var DEVELOPER = 'qwerty吃小庄'
-var GITHUB = 'https://github.com/qwertycxz'
+var GROUP = 'top.qwertycxz'
 var HOMEPAGE = 'https://qwertycxz.top'
-var ISSUE = 'https://github.com/qwertycxz/KeyBind-MaLilLib/issues'
-var KO_FI = 'https://ko-fi.com/qwertycxz'
+var ISSUE = "${MOD_GITHUB}/issues"
+var KO_FI = "https://ko-fi.com/${DEVELOPER_LOWERCASE}"
 var LICENSE = 'The Apache License, Version 2.0'
-var MODRINTH = 'TBD'
-var NAME = 'Key Bind through MaLiLib'
-var SCM = 'https://github.com/qwertycxz/KeyBind-MaLilLib'
+var MODRINTH = "https://modrinth.com/mod/${MOD_LOWERCASE}"
 var VERSION = androidGitVersion.name()
 
 mavenPublishing {
-	coordinates 'top.qwertycxz', ID, VERSION
+	coordinates GROUP, MOD_LOWERCASE, VERSION
 	pom {
 		ciManagement {
-			url = 'https://github.com/qwertycxz/KeyBind-MaLilLib/actions'
+			url = "${MOD_GITHUB}/actions"
 			system = 'GitHub Actions'
 		}
 		description = DESCRIPTION
 		developers {
 			developer {
-				id = 'qwertycxz'
-				name = DEVELOPER
+				id = DEVELOPER_LOWERCASE
+				name = DEVELOPER_NAME
 				properties = [
-					'GitHub': GITHUB,
+					'GitHub': DEVELOPER_GITHUB,
 					'Ko-fi': KO_FI,
 				]
 				timezone = 'Asia/Shanghai'
@@ -101,11 +122,11 @@ mavenPublishing {
 				url = 'https://www.apache.org/licenses/LICENSE-2.0'
 			}
 		}
-		name = NAME
+		name = MOD_NAME
 		scm {
-			connection = 'scm:git:git://github.com/qwertycxz/KeyBind-MaLilLib'
-			developerConnection = 'scm:git:ssh://github.com/qwertycxz/KeyBind-MaLilLib'
-			url = SCM
+			connection = "scm:git:git://${MOD_SCM}"
+			developerConnection = "scm:git:ssh://${MOD_SCM}"
+			url = MOD_GITHUB
 		}
 		url = MODRINTH
 	}
@@ -116,19 +137,20 @@ mavenPublishing {
 processResources {
 	filesMatching('fabric.mod.json') {
 		expand(
+			central: "https://central.sonatype.com/artifact/${GROUP}/${MOD_LOWERCASE}",
 			description: DESCRIPTION,
-			developer: DEVELOPER,
-			github: GITHUB,
+			developer: DEVELOPER_NAME,
+			github: DEVELOPER_GITHUB,
 			homepage: HOMEPAGE,
-			id: ID,
+			id: MOD_LOWERCASE,
 			issue: ISSUE,
 			kofi: KO_FI,
 			license: LICENSE,
 			modrinth: MODRINTH,
-			name: NAME,
+			name: MOD_NAME,
 			schema: '''schemaVersion": 1,
 	"$schema''',
-			scm: SCM,
+			scm: MOD_GITHUB,
 			version: VERSION,
 			)
 	}
