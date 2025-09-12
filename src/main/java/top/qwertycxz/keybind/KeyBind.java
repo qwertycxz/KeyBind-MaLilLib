@@ -9,6 +9,7 @@ public class KeyBind implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		getInstance().registerConfigHandler("$lowercase", new ConfigHandler());
-		getKeybindManager().registerKeybindProvider(new KeybindProvider());
+		getKeybindManager().registerKeybindProvider(new AddHotkeyKeybind());
+		getKeybindManager().registerKeybindProvider(new CustomKeybind());
 	}
 }
