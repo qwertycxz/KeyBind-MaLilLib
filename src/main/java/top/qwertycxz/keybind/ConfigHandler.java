@@ -11,7 +11,7 @@ import static fi.dy.masa.malilib.util.JsonUtils.writeJsonToFile;
 import static java.nio.file.Files.createDirectories;
 import static net.fabricmc.loader.api.FabricLoader.getInstance;
 import static net.minecraft.client.resources.language.I18n.get;
-import static org.slf4j.LoggerFactory.getLogger;
+import static org.apache.logging.log4j.LogManager.getLogger;
 import static top.qwertycxz.keybind.CustomKeybind.setHotkeyList;
 
 import com.google.gson.JsonObject;
@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 class ConfigHandler implements IConfigHandler {
 	static final String CATEGORY_GENERIC = "Generic";
