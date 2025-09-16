@@ -9,6 +9,7 @@ import static fi.dy.masa.malilib.gui.MaLiLibIcons.SEARCH;
 import static java.util.Collections.singletonList;
 import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
 
+import fi.dy.masa.malilib.config.IConfigManager;
 import fi.dy.masa.malilib.gui.LeftRight;
 import fi.dy.masa.malilib.gui.widgets.WidgetListBase;
 import fi.dy.masa.malilib.gui.widgets.WidgetSearchBar;
@@ -18,18 +19,20 @@ import java.util.List;
 public class Entries extends WidgetListBase<Integer, Entry> {
 	private static final int HEIGHT = MINUS.getHeight();
 	public boolean dirty = false;
+	private final IConfigManager configManager;
 
 	public Entries(int x, int y, int width, int height) {
 		super(x, y, width, height, null);
 		browserEntriesOffsetY = 17;
 		browserEntryHeight = HEIGHT;
+		configManager = getInstance();
 		widgetSearchBar = new WidgetSearchBar(x + 2, y + 4, width - 14, 14, 0, SEARCH, LeftRight.LEFT);
 	}
 
 	@Override
 	public void removed() {
 		if (dirty) {
-			getInstance().onConfigsChanged("$name");
+			configManager.onConfigsChanged("$name");
 		}
 	}
 
