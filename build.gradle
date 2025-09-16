@@ -286,7 +286,7 @@ spotless {
 			'UseStringIsEmpty',
 			'UseTextBlocks',
 		]) includeDraft true sourceCompatibility '24'
-		eclipse() configProperties ECLIPSE sortMembersDoNotSortFields false sortMembersEnabled true sortMembersVisibilityOrderEnabled true
+		eclipse() configProperties ECLIPSE sortMembersEnabled true sortMembersVisibilityOrderEnabled true
 		importOrder()
 		removeUnusedImports()
 		removeWildcardImports()

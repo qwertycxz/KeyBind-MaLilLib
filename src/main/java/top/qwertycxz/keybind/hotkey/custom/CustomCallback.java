@@ -1,13 +1,13 @@
-package top.qwertycxz.keybind;
+package top.qwertycxz.keybind.hotkey.custom;
 
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 
-class CustomCallback implements IHotkeyCallback {
-	final int scancode;
+public class CustomCallback implements IHotkeyCallback {
+	private final int scancode;
 
-	CustomCallback(int scancode) {
+	public CustomCallback(int scancode) {
 		this.scancode = scancode;
 	}
 

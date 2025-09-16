@@ -12,7 +12,7 @@ import static java.nio.file.Files.createDirectories;
 import static net.fabricmc.loader.api.FabricLoader.getInstance;
 import static net.minecraft.client.resources.language.I18n.get;
 import static org.apache.logging.log4j.LogManager.getLogger;
-import static top.qwertycxz.keybind.CustomKeybind.setHotkeyList;
+import static top.qwertycxz.keybind.hotkey.custom.CustomKeybind.setHotkeyList;
 
 import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.IConfigHandler;
@@ -26,24 +26,27 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import org.apache.logging.log4j.Logger;
+import top.qwertycxz.keybind.hotkey.add.AddHotkeyCallback;
+import top.qwertycxz.keybind.hotkey.custom.CustomCallback;
 
-class ConfigHandler implements IConfigHandler {
-	static final String CATEGORY_GENERIC = "Generic";
-	static final String CATEGORY_HOTKEYS = "Hotkeys";
-	static final String CATEGORY_SCANCODES = "Scancodes";
-	static final Path CONFIG_DIR = getInstance().getConfigDir().resolve("$capital");
-	static final File CONFIG_FILE = CONFIG_DIR.resolve("config.json").toFile();
-	static final ConfigHotkey GENERIC_ADD_HOTKEY = new ConfigHotkey("$capital.ConfigHandler.AddHotkey.Name", "", GUI, "$capital.ConfigHandler.AddHotkey.Comment");
-	static final IKeybind GENERIC_ADD_HOTKEY_KEYBIND = GENERIC_ADD_HOTKEY.getKeybind();
-	static final ConfigStringList GENERIC_HOTKEYS = new ConfigStringList("$capital.ConfigHandler.Hotkeys.Name", of(), "$capital.ConfigHandler.Hotkeys.Comment");
-	static final ConfigInteger GENERIC_NEXT_SCANCODE = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 0, "$capital.ConfigHandler.NextScancode.Comment");
-	static final List<ConfigBase<?>> GENERIC_OPTIONS = of(GENERIC_ADD_HOTKEY, GENERIC_HOTKEYS, GENERIC_NEXT_SCANCODE);
-	static final Logger LOGGER = getLogger(ConfigHandler.class);
-	static List<ConfigHotkey> hotkeysOptions = of();
-	static List<ConfigInteger> scancodesOptions = of();
+public class ConfigHandler implements IConfigHandler {
+	public static final ConfigHotkey ADD_HOTKEY_CONFIG = new ConfigHotkey("$capital.ConfigHandler.AddHotkey.Name", "", GUI, "$capital.ConfigHandler.AddHotkey.Comment");
+	public static final IKeybind ADD_HOTKEY_KEYBIND = ADD_HOTKEY_CONFIG.getKeybind();
+	private static final ConfigStringList HOTKEYS_CONFIG = new ConfigStringList("$capital.ConfigHandler.Hotkeys.Name", of(), "$capital.ConfigHandler.Hotkeys.Comment");
+	public static final List<String> HOTKEY_LIST = HOTKEYS_CONFIG.getStrings();
+	public static final ConfigInteger NEXT_SCANCODE_CONFIG = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 0, "$capital.ConfigHandler.NextScancode.Comment");
+	public static final List<ConfigBase<?>> GENERIC_OPTIONS = of(ADD_HOTKEY_CONFIG, HOTKEYS_CONFIG, NEXT_SCANCODE_CONFIG);
+	private static List<ConfigHotkey> hotkeysOptions = of();
+	private static List<ConfigInteger> scancodesOptions = of();
+	public static final String CATEGORY_GENERIC = "Generic";
+	public static final String CATEGORY_HOTKEYS = "Hotkeys";
+	private static final String CATEGORY_SCANCODES = "Scancodes";
+	private static final Path CONFIG_DIR = getInstance().getConfigDir().resolve("$capital");
+	private static final File CONFIG_FILE = CONFIG_DIR.resolve("config.json").toFile();
+	private static final Logger LOGGER = getLogger(ConfigHandler.class);
 
 	static {
-		GENERIC_ADD_HOTKEY_KEYBIND.setCallback(new AddHotkeyCallback());
+		ADD_HOTKEY_KEYBIND.setCallback(new AddHotkeyCallback());
 	}
 
 	@Override
@@ -51,14 +54,17 @@ class ConfigHandler implements IConfigHandler {
 		try {
 			final JsonObject config = parseJsonFile(CONFIG_FILE).getAsJsonObject();
 			readConfigBase(config, CATEGORY_GENERIC, GENERIC_OPTIONS);
-			scancodesOptions = from(GENERIC_HOTKEYS.getStrings()).transform(hotkey -> new ConfigInteger(hotkey, 0, "$capital.ConfigHandler.Scancode")).toList();
+
+			scancodesOptions = from(HOTKEY_LIST).transform(hotkey -> new ConfigInteger(hotkey, 0, "$capital.ConfigHandler.Scancode")).toList();
 			readConfigBase(config, CATEGORY_SCANCODES, scancodesOptions);
+
 			hotkeysOptions = from(scancodesOptions).transform(scancode -> {
 				ConfigHotkey hotkey = new ConfigHotkey(scancode.getName(), "", scancode.getStringValue());
 				hotkey.getKeybind().setCallback(new CustomCallback(scancode.getIntegerValue()));
 				return hotkey;
 			}).toList();
 			readConfigBase(config, CATEGORY_HOTKEYS, hotkeysOptions);
+
 			setHotkeyList(hotkeysOptions);
 			getKeybindManager().updateUsedKeys();
 		}
@@ -72,8 +78,10 @@ class ConfigHandler implements IConfigHandler {
 		try {
 			createDirectories(CONFIG_DIR);
 			final JsonObject json = new JsonObject();
+
 			writeConfigBase(json, CATEGORY_GENERIC, GENERIC_OPTIONS);
 			writeConfigBase(json, CATEGORY_HOTKEYS, hotkeysOptions);
+			writeConfigBase(json, CATEGORY_SCANCODES, scancodesOptions);
 			writeJsonToFile(json, CONFIG_FILE);
 		}
 		catch (IOException e) {
