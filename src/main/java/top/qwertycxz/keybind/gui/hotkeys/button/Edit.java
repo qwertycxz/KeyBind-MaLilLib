@@ -1,4 +1,4 @@
-package top.qwertycxz.keybind.gui.hotkeys.list.button;
+package top.qwertycxz.keybind.gui.hotkeys.button;
 
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;

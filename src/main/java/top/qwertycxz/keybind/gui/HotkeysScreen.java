@@ -1,16 +1,17 @@
-package top.qwertycxz.keybind.gui.hotkeys;
+package top.qwertycxz.keybind.gui;
 
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.BUTTON_HEIGHT;
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.BUTTON_SPAN;
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.LIST_TOP;
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.PADDING_LEFT;
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.PADDING_TOP;
+import static top.qwertycxz.keybind.gui.GenericScreen.BUTTON_HEIGHT;
+import static top.qwertycxz.keybind.gui.GenericScreen.BUTTON_SPAN;
+import static top.qwertycxz.keybind.gui.GenericScreen.LIST_TOP;
+import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_LEFT;
+import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_TOP;
 
 import fi.dy.masa.malilib.gui.GuiListBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import net.minecraft.client.gui.screens.Screen;
-import top.qwertycxz.keybind.gui.hotkeys.list.Entry;
-import top.qwertycxz.keybind.gui.hotkeys.list.Entries;
+import top.qwertycxz.keybind.gui.hotkeys.Entries;
+import top.qwertycxz.keybind.gui.hotkeys.Entry;
+import top.qwertycxz.keybind.gui.navigate.GenericButton;
 
 public class HotkeysScreen extends GuiListBase<Integer, Entry, Entries> {
 	private final Screen parent;

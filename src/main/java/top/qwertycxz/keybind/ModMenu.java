@@ -2,7 +2,7 @@ package top.qwertycxz.keybind;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import top.qwertycxz.keybind.gui.generic.GenericScreen;
+import top.qwertycxz.keybind.gui.GenericScreen;
 
 public class ModMenu implements ModMenuApi {
 	@Override

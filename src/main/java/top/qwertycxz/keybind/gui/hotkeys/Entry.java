@@ -1,19 +1,19 @@
-package top.qwertycxz.keybind.gui.hotkeys.list;
+package top.qwertycxz.keybind.gui.hotkeys;
 
 import static fi.dy.masa.malilib.gui.MaLiLibIcons.ARROW_DOWN;
 import static fi.dy.masa.malilib.gui.MaLiLibIcons.ARROW_UP;
 import static fi.dy.masa.malilib.gui.MaLiLibIcons.BTN_PLUSMINUS_16;
 import static fi.dy.masa.malilib.gui.MaLiLibIcons.MINUS;
 import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
-import static top.qwertycxz.keybind.gui.generic.GenericScreen.BUTTON_SPAN;
+import static top.qwertycxz.keybind.gui.GenericScreen.BUTTON_SPAN;
 
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.widgets.WidgetLabel;
 import fi.dy.masa.malilib.gui.widgets.WidgetListEntryBase;
-import top.qwertycxz.keybind.gui.hotkeys.list.button.Delete;
-import top.qwertycxz.keybind.gui.hotkeys.list.button.Down;
-import top.qwertycxz.keybind.gui.hotkeys.list.button.Edit;
-import top.qwertycxz.keybind.gui.hotkeys.list.button.Up;
+import top.qwertycxz.keybind.gui.hotkeys.button.Delete;
+import top.qwertycxz.keybind.gui.hotkeys.button.Down;
+import top.qwertycxz.keybind.gui.hotkeys.button.Edit;
+import top.qwertycxz.keybind.gui.hotkeys.button.Up;
 
 public class Entry extends WidgetListEntryBase<Integer> {
 	private static final int DOWN_WIDTH = ARROW_DOWN.getWidth();

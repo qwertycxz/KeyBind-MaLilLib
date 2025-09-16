@@ -1,4 +1,4 @@
-package top.qwertycxz.keybind.gui.hotkeys.list;
+package top.qwertycxz.keybind.gui.hotkeys;
 
 import static com.google.common.collect.ContiguousSet.create;
 import static com.google.common.collect.DiscreteDomain.integers;
@@ -16,8 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class Entries extends WidgetListBase<Integer, Entry> {
-	public boolean dirty = false;
 	private static final int HEIGHT = MINUS.getHeight();
+	public boolean dirty = false;
 
 	public Entries(int x, int y, int width, int height) {
 		super(x, y, width, height, null);
