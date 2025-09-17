@@ -9,10 +9,11 @@ import static top.qwertycxz.keybind.gui.HotkeyScreen.ID;
 import fi.dy.masa.malilib.gui.GuiConfigsBase.ConfigOptionWrapper;
 import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
 import fi.dy.masa.malilib.gui.widgets.WidgetConfigOption;
+import fi.dy.masa.malilib.gui.widgets.WidgetListConfigOptionsBase;
 import top.qwertycxz.keybind.gui.HotkeyScreen;
 
 class Entry extends WidgetConfigOption {
-	Entry(int x, int y, int width, int height, int labelWidth, int configWidth, ConfigOptionWrapper wrapper, int listIndex, HotkeyScreen host, Entries parent) {
+	Entry(int x, int y, int width, int height, int labelWidth, int configWidth, ConfigOptionWrapper wrapper, int listIndex, HotkeyScreen host, WidgetListConfigOptionsBase<?, ?> parent) {
 		super(x, y, width, height, labelWidth, configWidth, wrapper, listIndex, host, parent);
 		if (ID.equals(wrapper.getConfig().getName())) {
 			GuiTextFieldGeneric text = textField.getTextField();
