@@ -1,0 +1,31 @@
+package top.qwertycxz.keybind.gui.hotkey;
+
+import static net.minecraft.network.chat.Style.EMPTY;
+import static net.minecraft.util.FormattedCharSequence.forward;
+import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
+import static top.qwertycxz.keybind.gui.HotkeyScreen.DUPLICATE;
+import static top.qwertycxz.keybind.gui.HotkeyScreen.ID;
+
+import fi.dy.masa.malilib.gui.GuiConfigsBase.ConfigOptionWrapper;
+import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
+import fi.dy.masa.malilib.gui.widgets.WidgetConfigOption;
+import top.qwertycxz.keybind.gui.HotkeyScreen;
+
+class Entry extends WidgetConfigOption {
+	Entry(int x, int y, int width, int height, int labelWidth, int configWidth, ConfigOptionWrapper wrapper, int listIndex, HotkeyScreen host, Entries parent) {
+		super(x, y, width, height, labelWidth, configWidth, wrapper, listIndex, host, parent);
+		if (ID.equals(wrapper.getConfig().getName())) {
+			GuiTextFieldGeneric text = textField.getTextField();
+			text.setFormatter((string, position) -> forward(string, host.idStyle));
+			text.setResponder(string -> {
+				int index = HOTKEY_LIST.indexOf(string);
+				if (index == -1 || index == host.index) {
+					host.idStyle = EMPTY;
+				}
+				else {
+					host.idStyle = DUPLICATE;
+				}
+			});
+		}
+	}
+}

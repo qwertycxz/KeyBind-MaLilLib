@@ -1,8 +1,7 @@
 package top.qwertycxz.keybind;
 
-import static com.google.common.collect.Lists.transform;
-import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.ImmutableList.of;
+import static com.google.common.collect.Lists.transform;
 import static fi.dy.masa.malilib.config.ConfigUtils.readConfigBase;
 import static fi.dy.masa.malilib.config.ConfigUtils.writeConfigBase;
 import static fi.dy.masa.malilib.event.InputEventHandler.getKeybindManager;
@@ -25,6 +24,7 @@ import fi.dy.masa.malilib.hotkeys.IKeybind;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Logger;
 import top.qwertycxz.keybind.hotkey.add.AddHotkeyCallback;
@@ -37,8 +37,8 @@ public class ConfigHandler implements IConfigHandler {
 	public static final List<String> HOTKEY_LIST = HOTKEYS_CONFIG.getStrings();
 	public static final ConfigInteger NEXT_SCANCODE_CONFIG = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 0, "$capital.ConfigHandler.NextScancode.Comment");
 	public static final List<ConfigBase<?>> GENERIC_OPTIONS = of(ADD_HOTKEY_CONFIG, HOTKEYS_CONFIG, NEXT_SCANCODE_CONFIG);
-	public static List<ConfigHotkey> hotkeysOptions = of();
-	public static List<ConfigInteger> scancodesOptions = of();
+	public static ArrayList<ConfigHotkey> hotkeysOptions = new ArrayList<>();
+	public static ArrayList<ConfigInteger> scancodesOptions = new ArrayList<>();
 	public static final String CATEGORY_GENERIC = "Generic";
 	public static final String CATEGORY_HOTKEYS = "Hotkeys";
 	private static final String CATEGORY_SCANCODES = "Scancodes";
@@ -56,11 +56,11 @@ public class ConfigHandler implements IConfigHandler {
 			final JsonObject config = parseJsonFile(CONFIG_FILE).getAsJsonObject();
 			readConfigBase(config, CATEGORY_GENERIC, GENERIC_OPTIONS);
 
-			scancodesOptions = copyOf(transform(HOTKEY_LIST, hotkey -> new ConfigInteger(hotkey, 0, "$capital.ConfigHandler.Scancode")));
+			scancodesOptions = new ArrayList<>(transform(HOTKEY_LIST, hotkey -> new ConfigInteger(hotkey, 0, "")));
 			readConfigBase(config, CATEGORY_SCANCODES, scancodesOptions);
 
-			hotkeysOptions = copyOf(transform(scancodesOptions, scancode -> {
-				ConfigHotkey hotkey = new ConfigHotkey(scancode.getName(), "", scancode.getStringValue());
+			hotkeysOptions = new ArrayList<>(transform(scancodesOptions, scancode -> {
+				ConfigHotkey hotkey = new ConfigHotkey(scancode.getName(), "", "");
 				hotkey.getKeybind().setCallback(new CustomCallback(scancode.getIntegerValue()));
 				return hotkey;
 			}));

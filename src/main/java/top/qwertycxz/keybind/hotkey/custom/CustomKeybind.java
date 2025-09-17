@@ -10,8 +10,8 @@ import fi.dy.masa.malilib.hotkeys.IKeybindProvider;
 import java.util.List;
 
 public class CustomKeybind implements IKeybindProvider {
-	private static List<IKeybind> keybind = emptyList();
 	private static List<ConfigHotkey> hotkey = emptyList();
+	private static List<IKeybind> keybind = emptyList();
 
 	public static void setHotkey(List<ConfigHotkey> hotkey) {
 		CustomKeybind.hotkey = hotkey;
