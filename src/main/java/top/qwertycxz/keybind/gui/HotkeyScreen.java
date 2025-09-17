@@ -6,6 +6,8 @@ import static net.minecraft.network.chat.Style.EMPTY;
 import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
 import static top.qwertycxz.keybind.ConfigHandler.hotkeysOptions;
 import static top.qwertycxz.keybind.ConfigHandler.scancodesOptions;
+import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_LEFT;
+import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_TOP;
 
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
@@ -27,7 +29,7 @@ public class HotkeyScreen extends GuiConfigsBase {
 	private final ConfigInteger scancode;
 
 	public HotkeyScreen(int index, Screen parent) {
-		super(10, 26, "$name", null, "$capital.HotkeyScreen.Title");
+		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
 		id = new ConfigString(ID, HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Id");
 		hotkey = new ConfigHotkey("hotkey", hotkeysOptions.get(index).getStringValue(), "$capital.HotkeyScreen.Hotkey");
 		scancode = new ConfigInteger("scancode", scancodesOptions.get(index).getIntegerValue(), "$capital.HotkeyScreen.Scancode");
