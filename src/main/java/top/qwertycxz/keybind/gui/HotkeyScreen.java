@@ -31,7 +31,9 @@ public class HotkeyScreen extends GuiConfigsBase {
 	public HotkeyScreen(int index, Screen parent) {
 		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
 		id = new ConfigString(ID, HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Id");
-		hotkey = new ConfigHotkey("hotkey", hotkeysOptions.get(index).getStringValue(), "$capital.HotkeyScreen.Hotkey");
+
+		ConfigHotkey oldHotkey = hotkeysOptions.get(index);
+		hotkey = new ConfigHotkey("hotkey", oldHotkey.getStringValue(), oldHotkey.getKeybind().getSettings(), "$capital.HotkeyScreen.Hotkey");
 		scancode = new ConfigInteger("scancode", scancodesOptions.get(index).getIntegerValue(), "$capital.HotkeyScreen.Scancode");
 
 		this.index = index;
@@ -61,7 +63,11 @@ public class HotkeyScreen extends GuiConfigsBase {
 	protected void onSettingsChanged() {
 		String newId = id.getStringValue();
 		HOTKEY_LIST.set(index, newId);
-		hotkeysOptions.set(index, new ConfigHotkey(newId, hotkey.getStringValue(), ""));
+
+		ConfigHotkey newHotkey = new ConfigHotkey(newId, hotkey.getStringValue(), "");
+		newHotkey.getKeybind().setSettings(hotkey.getKeybind().getSettings());
+		hotkeysOptions.set(index, newHotkey);
+
 		scancodesOptions.set(index, new ConfigInteger(newId, scancode.getIntegerValue(), ""));
 		super.onSettingsChanged();
 	}

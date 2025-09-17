@@ -1,21 +1,19 @@
 package top.qwertycxz.keybind.hotkey.custom;
 
 import static com.google.common.collect.Lists.transform;
-import static java.util.Collections.emptyList;
-
-import fi.dy.masa.malilib.config.options.ConfigHotkey;
+import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.IKeybindManager;
 import fi.dy.masa.malilib.hotkeys.IKeybindProvider;
 import java.util.List;
 
 public class CustomKeybind implements IKeybindProvider {
-	private static List<ConfigHotkey> hotkey = emptyList();
-	private static List<IKeybind> keybind = emptyList();
+	private final List<? extends IHotkey> hotkey;
+	private final List<IKeybind> keybind;
 
-	public static void setHotkey(List<ConfigHotkey> hotkey) {
-		CustomKeybind.hotkey = hotkey;
-		keybind = transform(hotkey, ConfigHotkey::getKeybind);
+	public CustomKeybind(List<? extends IHotkey> hotkey) {
+		this.hotkey = hotkey;
+		this.keybind = transform(hotkey, IHotkey::getKeybind);
 	}
 
 	@Override
