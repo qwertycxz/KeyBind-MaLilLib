@@ -1,6 +1,7 @@
 package top.qwertycxz.keybind;
 
 import static com.google.common.collect.Lists.transform;
+import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.ImmutableList.of;
 import static fi.dy.masa.malilib.config.ConfigUtils.readConfigBase;
 import static fi.dy.masa.malilib.config.ConfigUtils.writeConfigBase;
@@ -12,7 +13,7 @@ import static java.nio.file.Files.createDirectories;
 import static net.fabricmc.loader.api.FabricLoader.getInstance;
 import static net.minecraft.client.resources.language.I18n.get;
 import static org.apache.logging.log4j.LogManager.getLogger;
-import static top.qwertycxz.keybind.hotkey.custom.CustomKeybind.setHotkeyList;
+import static top.qwertycxz.keybind.hotkey.custom.CustomKeybind.setHotkey;
 
 import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.IConfigHandler;
@@ -55,17 +56,17 @@ public class ConfigHandler implements IConfigHandler {
 			final JsonObject config = parseJsonFile(CONFIG_FILE).getAsJsonObject();
 			readConfigBase(config, CATEGORY_GENERIC, GENERIC_OPTIONS);
 
-			scancodesOptions = transform(HOTKEY_LIST, hotkey -> new ConfigInteger(hotkey, 0, "$capital.ConfigHandler.Scancode"));
+			scancodesOptions = copyOf(transform(HOTKEY_LIST, hotkey -> new ConfigInteger(hotkey, 0, "$capital.ConfigHandler.Scancode")));
 			readConfigBase(config, CATEGORY_SCANCODES, scancodesOptions);
 
-			hotkeysOptions = transform(scancodesOptions, scancode -> {
+			hotkeysOptions = copyOf(transform(scancodesOptions, scancode -> {
 				ConfigHotkey hotkey = new ConfigHotkey(scancode.getName(), "", scancode.getStringValue());
 				hotkey.getKeybind().setCallback(new CustomCallback(scancode.getIntegerValue()));
 				return hotkey;
-			});
+			}));
 			readConfigBase(config, CATEGORY_HOTKEYS, hotkeysOptions);
 
-			setHotkeyList(hotkeysOptions);
+			setHotkey(hotkeysOptions);
 			getKeybindManager().updateUsedKeys();
 		}
 		catch (Throwable e) {

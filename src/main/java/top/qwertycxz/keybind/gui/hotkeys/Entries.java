@@ -33,6 +33,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 	public void removed() {
 		if (dirty) {
 			configManager.onConfigsChanged("$name");
+			dirty = false;
 		}
 	}
 
