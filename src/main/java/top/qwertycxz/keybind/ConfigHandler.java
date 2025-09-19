@@ -36,7 +36,7 @@ public class ConfigHandler implements IConfigHandler {
 	public static final IKeybind ADD_HOTKEY_KEYBIND = ADD_HOTKEY_CONFIG.getKeybind();
 	private static final ConfigStringList HOTKEYS_CONFIG = new ConfigStringList("$capital.ConfigHandler.Hotkeys.Name", of(), "$capital.ConfigHandler.Hotkeys.Comment");
 	public static final List<String> HOTKEY_LIST = HOTKEYS_CONFIG.getStrings();
-	public static final ConfigInteger NEXT_SCANCODE_CONFIG = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 0, "$capital.ConfigHandler.NextScancode.Comment");
+	public static final ConfigInteger NEXT_SCANCODE_CONFIG = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 1000, "$capital.ConfigHandler.NextScancode.Comment");
 	public static final List<ConfigBase<?>> GENERIC_OPTIONS = of(ADD_HOTKEY_CONFIG, HOTKEYS_CONFIG, NEXT_SCANCODE_CONFIG);
 	public static ArrayList<ConfigHotkey> hotkeysOptions = new ArrayList<>();
 	public static ArrayList<ConfigInteger> scancodesOptions = new ArrayList<>();

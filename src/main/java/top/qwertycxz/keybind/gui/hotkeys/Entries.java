@@ -39,7 +39,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 
 	@Override
 	protected Entry createListEntryWidget(int x, int y, int listIndex, boolean odd, Integer entry) {
-		return new Entry(x, y, browserEntryWidth, browserEntryHeight, entry, listIndex, this, HOTKEY_LIST.stream().map(string -> textRenderer.width(string)).max(Integer::compareTo).orElse(0));
+		return new Entry(x, y, browserEntryWidth, browserEntryHeight, entry, listIndex, this, HOTKEY_LIST.parallelStream().map(textRenderer::width).unordered().max(Integer::compareTo).orElse(0));
 	}
 
 	@Override
