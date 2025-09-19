@@ -31,10 +31,9 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 
 	@Override
 	public void removed() {
-		if (dirty) {
-			configManager.onConfigsChanged("$name");
-			dirty = false;
-		}
+		if (!dirty) return;
+		configManager.onConfigsChanged("$name");
+		dirty = false;
 	}
 
 	@Override
