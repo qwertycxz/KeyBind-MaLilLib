@@ -13,8 +13,8 @@ import fi.dy.masa.malilib.config.IConfigManager;
 import fi.dy.masa.malilib.gui.LeftRight;
 import fi.dy.masa.malilib.gui.widgets.WidgetListBase;
 import fi.dy.masa.malilib.gui.widgets.WidgetSearchBar;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class Entries extends WidgetListBase<Integer, Entry> {
 	private static final int HEIGHT = MINUS.getHeight();
@@ -43,7 +43,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 	}
 
 	@Override
-	protected Collection<Integer> getAllEntries() {
+	protected Set<Integer> getAllEntries() {
 		return create(closedOpen(0, HOTKEY_LIST.size()), integers());
 	}
 

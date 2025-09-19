@@ -6,7 +6,7 @@ import top.qwertycxz.keybind.gui.GenericScreen;
 
 public class ModMenu implements ModMenuApi {
 	@Override
-	public ConfigScreenFactory<?> getModConfigScreenFactory() {
+	public ConfigScreenFactory<GenericScreen> getModConfigScreenFactory() {
 		return GenericScreen::new;
 	}
 }

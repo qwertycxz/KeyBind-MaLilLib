@@ -13,15 +13,16 @@ import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigString;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
-import fi.dy.masa.malilib.gui.widgets.WidgetListConfigOptions;
 import java.util.List;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Style;
+import top.qwertycxz.keybind.gui.hotkey.Dialog;
 import top.qwertycxz.keybind.gui.hotkey.Entries;
 
 public class HotkeyScreen extends GuiConfigsBase {
 	public static final Style DUPLICATE = EMPTY.withColor(RED);
 	public static final String ID = "id";
+	public boolean dialog = false;
 	public Style idStyle = EMPTY;
 	public final int index;
 	private final ConfigHotkey hotkey;
@@ -30,11 +31,9 @@ public class HotkeyScreen extends GuiConfigsBase {
 
 	public HotkeyScreen(int index, Screen parent) {
 		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
-		id = new ConfigString(ID, HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Id");
-
-		ConfigHotkey oldHotkey = hotkeysOptions.get(index);
-		hotkey = new ConfigHotkey("hotkey", oldHotkey.getStringValue(), oldHotkey.getKeybind().getSettings(), "$capital.HotkeyScreen.Hotkey");
-		scancode = new ConfigInteger("scancode", scancodesOptions.get(index).getIntegerValue(), "$capital.HotkeyScreen.Scancode");
+		hotkey = hotkeysOptions.get(index);
+		id = new ConfigString("$capital.HotkeyScreen.Id", HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Comment");
+		scancode = scancodesOptions.get(index);
 
 		this.index = index;
 		setParent(parent);
@@ -43,6 +42,11 @@ public class HotkeyScreen extends GuiConfigsBase {
 	@Override
 	public List<ConfigOptionWrapper> getConfigs() {
 		return ConfigOptionWrapper.createFor(asList(id, hotkey, scancode));
+	}
+
+	@Override
+	public Dialog getDialogHandler() {
+		return new Dialog(this);
 	}
 
 	@Override
@@ -55,12 +59,13 @@ public class HotkeyScreen extends GuiConfigsBase {
 	protected void buildConfigSwitcher() {}
 
 	@Override
-	protected WidgetListConfigOptions createListWidget(int listX, int listY) {
+	protected Entries createListWidget(int listX, int listY) {
 		return new Entries(listX, listY, getBrowserWidth(), getBrowserHeight(), getConfigWidth(), 0, useKeybindSearch(), this);
 	}
 
 	@Override
 	protected void onSettingsChanged() {
+		if (dialog || idStyle == DUPLICATE) return;
 		String newId = id.getStringValue();
 		HOTKEY_LIST.set(index, newId);
 

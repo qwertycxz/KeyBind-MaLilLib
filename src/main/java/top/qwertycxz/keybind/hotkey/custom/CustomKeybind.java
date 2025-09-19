@@ -1,6 +1,7 @@
 package top.qwertycxz.keybind.hotkey.custom;
 
 import static com.google.common.collect.Lists.transform;
+
 import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.IKeybindManager;
