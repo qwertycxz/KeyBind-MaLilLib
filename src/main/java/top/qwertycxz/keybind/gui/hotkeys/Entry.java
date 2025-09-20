@@ -21,9 +21,9 @@ public class Entry extends WidgetListEntryBase<Integer> {
 	private static final int PLUSMINUS_WIDTH = BTN_PLUSMINUS_16.getWidth();
 	private static final int UP_WIDTH = ARROW_UP.getWidth();
 
-	Entry(int x, int y, int width, int height, Integer entry, int index, Entries entries, int labelWidth) {
+	Entry(final int x, final int y, final int width, final int height, final Integer entry, final int index, final Entries entries, final int labelWidth) {
 		super(x, y, width, height, entry, index);
-		WidgetLabel background = new WidgetLabel(x, y, width, height, 0);
+		final WidgetLabel background = new WidgetLabel(x, y, width, height, 0);
 		if (index % 2 == 1) {
 			background.setBackgroundProperties(0, 0x20FFFFFF, 0, 0);
 		}
@@ -32,7 +32,7 @@ public class Entry extends WidgetListEntryBase<Integer> {
 		}
 		addWidget(background);
 
-		ButtonGeneric edit = new ButtonGeneric(x, y, BTN_PLUSMINUS_16, "$capital.Entry.Edit");
+		final ButtonGeneric edit = new ButtonGeneric(x, y, BTN_PLUSMINUS_16, "$capital.Entry.Edit");
 		edit.setHeight(height);
 		addButton(edit, new Edit(entry));
 

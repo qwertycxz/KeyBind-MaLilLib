@@ -12,12 +12,12 @@ import top.qwertycxz.keybind.gui.HotkeysScreen;
 public class HotkeysButton implements IButtonActionListener {
 	private final Screen parent;
 
-	public HotkeysButton(Screen parent) {
+	public HotkeysButton(final Screen parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public void actionPerformedWithButton(ButtonBase button, int mouse) {
+	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		category = CATEGORY_HOTKEYS;
 		openGui(new HotkeysScreen(parent));
 	}

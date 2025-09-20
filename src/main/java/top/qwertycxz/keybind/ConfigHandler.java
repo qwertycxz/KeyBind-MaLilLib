@@ -67,8 +67,8 @@ public class ConfigHandler implements IConfigHandler {
 			readConfigBase(config, CATEGORY_SCANCODES, scancodesOptions);
 
 			for (int i = 0; i < HOTKEY_LIST.size(); i++) {
-				String id = HOTKEY_LIST.get(i);
-				ConfigHotkey hotkey = new ConfigHotkey(id, hotkeysOptions.get(i).getStringValue(), hotkeysOptions.get(i).getKeybind().getSettings(), "$capital.ConfigHandler.Hotkey");
+				final String id = HOTKEY_LIST.get(i);
+				final ConfigHotkey hotkey = new ConfigHotkey(id, hotkeysOptions.get(i).getStringValue(), hotkeysOptions.get(i).getKeybind().getSettings(), "$capital.ConfigHandler.Hotkey");
 				hotkey.getKeybind().setCallback(new CustomCallback(scancodesOptions.get(i).getIntegerValue()));
 				hotkeysOptions.set(i, hotkey);
 				scancodesOptions.set(i, new ConfigInteger(id, scancodesOptions.get(i).getIntegerValue(), "$capital.ConfigHandler.Scancode"));
@@ -77,7 +77,7 @@ public class ConfigHandler implements IConfigHandler {
 			hotkeysKeybind = new CustomKeybind(hotkeysOptions);
 			KEYBIND_MANAGER.registerKeybindProvider(hotkeysKeybind);
 		}
-		catch (Throwable e) {
+		catch (final Throwable e) {
 			LOGGER.warn(get("$capital.ConfigHandler.LoadError"), e);
 		}
 	}
@@ -93,7 +93,7 @@ public class ConfigHandler implements IConfigHandler {
 			writeConfigBase(json, CATEGORY_SCANCODES, scancodesOptions);
 			writeJsonToFile(json, CONFIG_FILE);
 		}
-		catch (IOException e) {
+		catch (final IOException e) {
 			throw new RuntimeException(get("$capital.ConfigHandler.SaveError"), e);
 		}
 	}

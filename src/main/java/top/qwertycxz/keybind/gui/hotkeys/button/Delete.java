@@ -10,13 +10,13 @@ public class Delete implements IButtonActionListener {
 	private final Entries entries;
 	private final int entry;
 
-	public Delete(Entries entries, int entry) {
+	public Delete(final Entries entries, final int entry) {
 		this.entries = entries;
 		this.entry = entry;
 	}
 
 	@Override
-	public void actionPerformedWithButton(ButtonBase button, int mouse) {
+	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		HOTKEY_LIST.remove(entry);
 		entries.dirty = true;
 		entries.refreshEntries();

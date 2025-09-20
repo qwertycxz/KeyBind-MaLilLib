@@ -13,12 +13,12 @@ public class AddHotkeyKeybind implements IKeybindProvider {
 	private static final List<ConfigHotkey> HOTKEY = singletonList(ADD_HOTKEY_CONFIG);
 
 	@Override
-	public void addHotkeys(IKeybindManager manager) {
+	public void addHotkeys(final IKeybindManager manager) {
 		manager.addHotkeysForCategory("$name", "$capital.AddHotkeyKeybind", HOTKEY);
 	}
 
 	@Override
-	public void addKeysToMap(IKeybindManager manager) {
+	public void addKeysToMap(final IKeybindManager manager) {
 		manager.addKeybindToMap(ADD_HOTKEY_KEYBIND);
 	}
 }

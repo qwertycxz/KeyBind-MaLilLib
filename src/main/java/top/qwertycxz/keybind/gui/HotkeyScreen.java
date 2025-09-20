@@ -29,7 +29,7 @@ public class HotkeyScreen extends GuiConfigsBase {
 	private final ConfigString id;
 	private final ConfigInteger scancode;
 
-	public HotkeyScreen(int index, Screen parent) {
+	public HotkeyScreen(final int index, final Screen parent) {
 		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
 		hotkey = hotkeysOptions.get(index);
 		id = new ConfigString("$capital.HotkeyScreen.Id", HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Comment");
@@ -50,7 +50,7 @@ public class HotkeyScreen extends GuiConfigsBase {
 	}
 
 	@Override
-	public boolean onKeyTyped(int key, int scancode, int modifiers) {
+	public boolean onKeyTyped(final int key, final int scancode, final int modifiers) {
 		if (idStyle == DUPLICATE && key == 256) return true;
 		return super.onKeyTyped(key, scancode, modifiers);
 	}
@@ -59,17 +59,17 @@ public class HotkeyScreen extends GuiConfigsBase {
 	protected void buildConfigSwitcher() {}
 
 	@Override
-	protected Entries createListWidget(int listX, int listY) {
+	protected Entries createListWidget(final int listX, final int listY) {
 		return new Entries(listX, listY, getBrowserWidth(), getBrowserHeight(), getConfigWidth(), 0, useKeybindSearch(), this);
 	}
 
 	@Override
 	protected void onSettingsChanged() {
 		if (dialog || idStyle == DUPLICATE) return;
-		String newId = id.getStringValue();
+		final String newId = id.getStringValue();
 		HOTKEY_LIST.set(index, newId);
 
-		ConfigHotkey newHotkey = new ConfigHotkey(newId, hotkey.getStringValue(), "");
+		final ConfigHotkey newHotkey = new ConfigHotkey(newId, hotkey.getStringValue(), "");
 		newHotkey.getKeybind().setSettings(hotkey.getKeybind().getSettings());
 		hotkeysOptions.set(index, newHotkey);
 

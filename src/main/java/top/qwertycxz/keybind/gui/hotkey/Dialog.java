@@ -9,7 +9,7 @@ import top.qwertycxz.keybind.gui.HotkeyScreen;
 public class Dialog implements IDialogHandler {
 	final HotkeyScreen parent;
 
-	public Dialog(HotkeyScreen parent) {
+	public Dialog(final HotkeyScreen parent) {
 		this.parent = parent;
 	}
 
@@ -20,7 +20,7 @@ public class Dialog implements IDialogHandler {
 	}
 
 	@Override
-	public void openDialog(GuiBase gui) {
+	public void openDialog(final GuiBase gui) {
 		parent.dialog = true;
 		openGui(gui);
 	}

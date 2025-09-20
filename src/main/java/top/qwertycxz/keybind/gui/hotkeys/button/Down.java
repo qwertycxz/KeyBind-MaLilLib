@@ -11,13 +11,13 @@ public class Down implements IButtonActionListener {
 	private final Entries entries;
 	private final int entry;
 
-	public Down(Entries entries, int entry) {
+	public Down(final Entries entries, final int entry) {
 		this.entries = entries;
 		this.entry = entry;
 	}
 
 	@Override
-	public void actionPerformedWithButton(ButtonBase button, int mouse) {
+	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		swap(HOTKEY_LIST, entry, entry + 1);
 		entries.dirty = true;
 		entries.refreshEntries();

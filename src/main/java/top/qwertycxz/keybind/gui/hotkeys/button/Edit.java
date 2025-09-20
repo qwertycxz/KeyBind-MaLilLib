@@ -11,13 +11,13 @@ public class Edit implements IButtonActionListener {
 	private final Minecraft client;
 	private final int entry;
 
-	public Edit(int entry) {
+	public Edit(final int entry) {
 		client = getInstance();
 		this.entry = entry;
 	}
 
 	@Override
-	public void actionPerformedWithButton(ButtonBase button, int mouse) {
+	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		client.setScreen(new HotkeyScreen(entry, client.screen));
 	}
 }

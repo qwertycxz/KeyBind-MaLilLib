@@ -21,7 +21,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 	public boolean dirty = false;
 	private final IConfigManager configManager;
 
-	public Entries(int x, int y, int width, int height) {
+	public Entries(final int x, final int y, final int width, final int height) {
 		super(x, y, width, height, null);
 		browserEntriesOffsetY = 17;
 		browserEntryHeight = HEIGHT;
@@ -37,7 +37,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 	}
 
 	@Override
-	protected Entry createListEntryWidget(int x, int y, int listIndex, boolean odd, Integer entry) {
+	protected Entry createListEntryWidget(final int x, final int y, final int listIndex, final boolean odd, final Integer entry) {
 		return new Entry(x, y, browserEntryWidth, browserEntryHeight, entry, listIndex, this, HOTKEY_LIST.parallelStream().map(textRenderer::width).unordered().max(Integer::compareTo).orElse(0));
 	}
 
@@ -47,7 +47,7 @@ public class Entries extends WidgetListBase<Integer, Entry> {
 	}
 
 	@Override
-	protected List<String> getEntryStringsForFilter(Integer filter) {
+	protected List<String> getEntryStringsForFilter(final Integer filter) {
 		return singletonList(HOTKEY_LIST.get(filter).toLowerCase());
 	}
 }

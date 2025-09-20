@@ -12,19 +12,19 @@ public class CustomKeybind implements IKeybindProvider {
 	private final List<? extends IHotkey> hotkey;
 	private final List<IKeybind> keybind;
 
-	public CustomKeybind(List<? extends IHotkey> hotkey) {
+	public CustomKeybind(final List<? extends IHotkey> hotkey) {
 		this.hotkey = hotkey;
 		this.keybind = transform(hotkey, IHotkey::getKeybind);
 	}
 
 	@Override
-	public void addHotkeys(IKeybindManager manager) {
+	public void addHotkeys(final IKeybindManager manager) {
 		manager.addHotkeysForCategory("$name", "$capital.CustomKeybind", hotkey);
 	}
 
 	@Override
-	public void addKeysToMap(IKeybindManager manager) {
-		for (IKeybind keybind : keybind) {
+	public void addKeysToMap(final IKeybindManager manager) {
+		for (final IKeybind keybind : keybind) {
 			manager.addKeybindToMap(keybind);
 		}
 	}

@@ -16,7 +16,7 @@ import top.qwertycxz.keybind.gui.navigate.GenericButton;
 public class HotkeysScreen extends GuiListBase<Integer, Entry, Entries> {
 	private final Screen parent;
 
-	public HotkeysScreen(Screen parent) {
+	public HotkeysScreen(final Screen parent) {
 		super(PADDING_LEFT, LIST_TOP);
 		title = "$capital.Gui.Title";
 		this.parent = parent;
@@ -26,15 +26,15 @@ public class HotkeysScreen extends GuiListBase<Integer, Entry, Entries> {
 	@Override
 	public void initGui() {
 		super.initGui();
-		ButtonGeneric generic = new ButtonGeneric(PADDING_LEFT, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Generic");
+		final ButtonGeneric generic = new ButtonGeneric(PADDING_LEFT, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Generic");
 		addButton(generic, new GenericButton(parent));
-		ButtonGeneric hotkeys = new ButtonGeneric(generic.getWidth() + PADDING_LEFT + BUTTON_SPAN, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Hotkeys");
+		final ButtonGeneric hotkeys = new ButtonGeneric(generic.getWidth() + PADDING_LEFT + BUTTON_SPAN, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Hotkeys");
 		hotkeys.setEnabled(false);
 		addButton(hotkeys, null);
 	}
 
 	@Override
-	protected Entries createListWidget(int x, int y) {
+	protected Entries createListWidget(final int x, final int y) {
 		return new Entries(x, y, getBrowserWidth(), getBrowserHeight());
 	}
 

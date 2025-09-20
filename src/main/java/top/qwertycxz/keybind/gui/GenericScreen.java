@@ -19,7 +19,7 @@ public class GenericScreen extends GuiConfigsBase {
 	static final int PADDING_TOP = 26;
 	private final Screen parent;
 
-	public GenericScreen(Screen parent) {
+	public GenericScreen(final Screen parent) {
 		super(PADDING_LEFT, LIST_TOP, "$name", null, "$capital.Gui.Title");
 		this.parent = parent;
 		setParent(parent);
@@ -38,7 +38,7 @@ public class GenericScreen extends GuiConfigsBase {
 		}
 		super.initGui();
 
-		ButtonGeneric generic = new ButtonGeneric(PADDING_LEFT, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Generic");
+		final ButtonGeneric generic = new ButtonGeneric(PADDING_LEFT, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Generic");
 		generic.setEnabled(false);
 		addButton(generic, null);
 		addButton(new ButtonGeneric(generic.getWidth() + PADDING_LEFT + BUTTON_SPAN, PADDING_TOP, -1, BUTTON_HEIGHT, "$capital.Gui.Hotkeys"), new HotkeysButton(parent));

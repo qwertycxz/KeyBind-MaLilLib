@@ -15,13 +15,13 @@ import fi.dy.masa.malilib.gui.widgets.WidgetListConfigOptionsBase;
 import top.qwertycxz.keybind.gui.HotkeyScreen;
 
 class Entry extends WidgetConfigOption {
-	Entry(int x, int y, int width, int height, int labelWidth, int configWidth, ConfigOptionWrapper wrapper, int listIndex, HotkeyScreen host, WidgetListConfigOptionsBase<?, ?> parent) {
+	Entry(final int x, final int y, final int width, final int height, final int labelWidth, final int configWidth, final ConfigOptionWrapper wrapper, final int listIndex, final HotkeyScreen host, final WidgetListConfigOptionsBase<?, ?> parent) {
 		super(x, y, width, height, labelWidth, configWidth, wrapper, listIndex, host, parent);
 		if (!(wrapper.getConfig() instanceof ConfigString)) return;
-		GuiTextFieldGeneric text = textField.getTextField();
+		final GuiTextFieldGeneric text = textField.getTextField();
 		text.setFormatter((string, position) -> forward(string, host.idStyle));
 		text.setResponder(string -> {
-			int index = HOTKEY_LIST.indexOf(string);
+			final int index = HOTKEY_LIST.indexOf(string);
 			if (index == -1 || index == host.index) {
 				host.idStyle = EMPTY;
 			}
@@ -32,7 +32,7 @@ class Entry extends WidgetConfigOption {
 	}
 
 	@Override
-	protected void addLabel(int x, int y, int width, int height, int color, String... lines) {
+	protected void addLabel(final int x, final int y, final int width, final int height, final int color, final String... lines) {
 		if (wrapper.getConfig() instanceof ConfigHotkey) {
 			super.addLabel(x, y, width, height, color, "$capital.Entry.Hotkey");
 		}

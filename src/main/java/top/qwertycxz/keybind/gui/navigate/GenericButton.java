@@ -12,12 +12,12 @@ import top.qwertycxz.keybind.gui.GenericScreen;
 public class GenericButton implements IButtonActionListener {
 	private final Screen parent;
 
-	public GenericButton(Screen parent) {
+	public GenericButton(final Screen parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public void actionPerformedWithButton(ButtonBase button, int mouse) {
+	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		category = CATEGORY_GENERIC;
 		openGui(new GenericScreen(parent));
 	}
