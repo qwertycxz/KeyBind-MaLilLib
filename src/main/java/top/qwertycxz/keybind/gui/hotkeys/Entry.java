@@ -34,7 +34,7 @@ public class Entry extends WidgetListEntryBase<Integer> {
 
 		final ButtonGeneric edit = new ButtonGeneric(x, y, BTN_PLUSMINUS_16, "$capital.Entry.Edit");
 		edit.setHeight(height);
-		addButton(edit, new Edit(entry));
+		addButton(edit, new Edit(entries, entry));
 
 		addLabel(x + PLUSMINUS_WIDTH + BUTTON_SPAN, y + 5, labelWidth, 8, 0xFFFFFFFF, HOTKEY_LIST.get(entry));
 		if (entry > 0) {
