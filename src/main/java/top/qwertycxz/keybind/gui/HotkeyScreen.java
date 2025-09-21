@@ -1,14 +1,18 @@
 package top.qwertycxz.keybind.gui;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.frequency;
 import static net.minecraft.ChatFormatting.RED;
 import static net.minecraft.network.chat.Style.EMPTY;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
-import static top.qwertycxz.keybind.ConfigHandler.hotkeysOptions;
+import static top.qwertycxz.keybind.ConfigHandler.pressOptions;
+import static top.qwertycxz.keybind.ConfigHandler.releaseOptions;
 import static top.qwertycxz.keybind.ConfigHandler.scancodesOptions;
 import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_LEFT;
 import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_TOP;
-
+import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.Press.WINDOW;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigString;
@@ -24,24 +28,32 @@ public class HotkeyScreen extends GuiConfigsBase {
 	public static final String ID = "id";
 	public boolean dialog = false;
 	public Style idStyle = EMPTY;
+	private final boolean pressOnClose;
 	public final int index;
-	private final ConfigHotkey hotkey;
 	private final ConfigString id;
+	private final ConfigHotkey press;
+	private final ConfigHotkey release;
 	private final ConfigInteger scancode;
 
-	public HotkeyScreen(final int index, final Screen parent) {
+	public HotkeyScreen(final int index, final Screen parent, final boolean pressOnClose) {
 		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
-		hotkey = hotkeysOptions.get(index);
-		id = new ConfigString("$capital.HotkeyScreen.Id", HOTKEY_LIST.get(index), "$capital.HotkeyScreen.Comment");
+		press = pressOptions.get(index);
+		release = releaseOptions.get(index);
 		scancode = scancodesOptions.get(index);
-
 		this.index = index;
+		this.pressOnClose = pressOnClose;
 		setParent(parent);
+
+		final String idString = HOTKEY_LIST.get(index);
+		id = new ConfigString("$capital.HotkeyScreen.Id", idString, "$capital.HotkeyScreen.Comment");
+		if (frequency(HOTKEY_LIST, idString) > 1) {
+			idStyle = DUPLICATE;
+		}
 	}
 
 	@Override
 	public List<ConfigOptionWrapper> getConfigs() {
-		return ConfigOptionWrapper.createFor(asList(id, hotkey, scancode));
+		return ConfigOptionWrapper.createFor(asList(id, press, release, scancode));
 	}
 
 	@Override
@@ -59,6 +71,15 @@ public class HotkeyScreen extends GuiConfigsBase {
 	protected void buildConfigSwitcher() {}
 
 	@Override
+	protected void closeGui(boolean showParent) {
+		super.closeGui(showParent);
+		int key = scancode.getIntegerValue();
+		if (pressOnClose) {
+			CLIENT.keyboardHandler.keyPress(WINDOW, key, key, GLFW_PRESS, 0);
+		}
+	}
+
+	@Override
 	protected Entries createListWidget(final int listX, final int listY) {
 		return new Entries(listX, listY, getBrowserWidth(), getBrowserHeight(), getConfigWidth(), 0, useKeybindSearch(), this);
 	}
@@ -69,9 +90,13 @@ public class HotkeyScreen extends GuiConfigsBase {
 		final String newId = id.getStringValue();
 		HOTKEY_LIST.set(index, newId);
 
-		final ConfigHotkey newHotkey = new ConfigHotkey(newId, hotkey.getStringValue(), "");
-		newHotkey.getKeybind().setSettings(hotkey.getKeybind().getSettings());
-		hotkeysOptions.set(index, newHotkey);
+		final ConfigHotkey newPress = new ConfigHotkey(newId, press.getStringValue(), "");
+		newPress.getKeybind().setSettings(press.getKeybind().getSettings());
+		pressOptions.set(index, newPress);
+
+		final ConfigHotkey newRelease = new ConfigHotkey(newId, release.getStringValue(), "");
+		newRelease.getKeybind().setSettings(release.getKeybind().getSettings());
+		releaseOptions.set(index, newRelease);
 
 		scancodesOptions.set(index, new ConfigInteger(newId, scancode.getIntegerValue(), ""));
 		super.onSettingsChanged();

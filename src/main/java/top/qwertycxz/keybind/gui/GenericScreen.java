@@ -1,8 +1,8 @@
 package top.qwertycxz.keybind.gui;
 
 import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_GENERIC;
-import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_HOTKEYS;
 import static top.qwertycxz.keybind.ConfigHandler.GENERIC_OPTIONS;
+import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
 
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
@@ -12,6 +12,7 @@ import top.qwertycxz.keybind.gui.navigate.HotkeysButton;
 
 public class GenericScreen extends GuiConfigsBase {
 	public static final int BUTTON_SPAN = 2;
+	public static final String CATEGORY_HOTKEYS = "Hotkeys";
 	public static String category = CATEGORY_GENERIC;
 	static final int BUTTON_HEIGHT = 20;
 	static final int LIST_TOP = 50;
@@ -33,7 +34,7 @@ public class GenericScreen extends GuiConfigsBase {
 	@Override
 	public void initGui() {
 		if (CATEGORY_HOTKEYS.equals(category)) {
-			openGui(new HotkeysScreen(parent));
+			CLIENT.setScreen(new HotkeysScreen(parent));
 			return;
 		}
 		super.initGui();

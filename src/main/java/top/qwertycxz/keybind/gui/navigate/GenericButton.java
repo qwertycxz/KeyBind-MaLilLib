@@ -1,8 +1,8 @@
 package top.qwertycxz.keybind.gui.navigate;
 
-import static fi.dy.masa.malilib.gui.GuiBase.openGui;
 import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_GENERIC;
 import static top.qwertycxz.keybind.gui.GenericScreen.category;
+import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
 
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
@@ -19,6 +19,6 @@ public class GenericButton implements IButtonActionListener {
 	@Override
 	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		category = CATEGORY_GENERIC;
-		openGui(new GenericScreen(parent));
+		CLIENT.setScreen(new GenericScreen(parent));
 	}
 }

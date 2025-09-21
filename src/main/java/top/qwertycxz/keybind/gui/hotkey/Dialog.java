@@ -1,6 +1,6 @@
 package top.qwertycxz.keybind.gui.hotkey;
 
-import static fi.dy.masa.malilib.gui.GuiBase.openGui;
+import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
 
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.interfaces.IDialogHandler;
@@ -15,13 +15,13 @@ public class Dialog implements IDialogHandler {
 
 	@Override
 	public void closeDialog() {
-		openGui(parent);
+		CLIENT.setScreen(parent);
 		parent.dialog = false;
 	}
 
 	@Override
 	public void openDialog(final GuiBase gui) {
 		parent.dialog = true;
-		openGui(gui);
+		CLIENT.setScreen(gui);
 	}
 }

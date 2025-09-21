@@ -1,8 +1,8 @@
 package top.qwertycxz.keybind.gui.navigate;
 
-import static fi.dy.masa.malilib.gui.GuiBase.openGui;
-import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_HOTKEYS;
+import static top.qwertycxz.keybind.gui.GenericScreen.CATEGORY_HOTKEYS;
 import static top.qwertycxz.keybind.gui.GenericScreen.category;
+import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
 
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
@@ -19,6 +19,6 @@ public class HotkeysButton implements IButtonActionListener {
 	@Override
 	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
 		category = CATEGORY_HOTKEYS;
-		openGui(new HotkeysScreen(parent));
+		CLIENT.setScreen(new HotkeysScreen(parent));
 	}
 }

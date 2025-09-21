@@ -5,8 +5,6 @@ import static net.minecraft.util.FormattedCharSequence.forward;
 import static top.qwertycxz.keybind.ConfigHandler.HOTKEY_LIST;
 import static top.qwertycxz.keybind.gui.HotkeyScreen.DUPLICATE;
 
-import fi.dy.masa.malilib.config.options.ConfigHotkey;
-import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigString;
 import fi.dy.masa.malilib.gui.GuiConfigsBase.ConfigOptionWrapper;
 import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
@@ -33,14 +31,18 @@ class Entry extends WidgetConfigOption {
 
 	@Override
 	protected void addLabel(final int x, final int y, final int width, final int height, final int color, final String... lines) {
-		if (wrapper.getConfig() instanceof ConfigHotkey) {
-			super.addLabel(x, y, width, height, color, "$capital.Entry.Hotkey");
-		}
-		else if (wrapper.getConfig() instanceof ConfigInteger) {
-			super.addLabel(x, y, width, height, color, "$capital.Entry.Scancode");
-		}
-		else {
-			super.addLabel(x, y, width, height, color, lines);
+		switch (listIndex) {
+			case 1:
+				super.addLabel(x, y, width, height, color, "$capital.Entry.Press");
+				break;
+			case 2:
+				super.addLabel(x, y, width, height, color, "$capital.Entry.Release");
+				break;
+			case 3:
+				super.addLabel(x, y, width, height, color, "$capital.Entry.Scancode");
+				break;
+			default:
+				super.addLabel(x, y, width, height, color, lines);
 		}
 	}
 }
