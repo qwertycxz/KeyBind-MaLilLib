@@ -20,7 +20,9 @@ public class AddHotkeyCallback implements IHotkeyCallback {
 
 	@Override
 	public boolean onKeyAction(final KeyAction action, final IKeybind keybind) {
+		if (CLIENT.screen instanceof HotkeyScreen) return false;
 		final int index = HOTKEY_LIST.size();
+
 		HOTKEY_LIST.add(NEW_ID);
 		pressOptions.add(new ConfigHotkey(NEW_ID, "", "$capital.AddHotkeyCallback.Press"));
 		releaseOptions.add(new ConfigHotkey(NEW_ID, "", "$capital.AddHotkeyCallback.Release"));
