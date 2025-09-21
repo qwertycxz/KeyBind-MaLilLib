@@ -6,7 +6,7 @@ import static top.qwertycxz.keybind.ConfigHandler.NEXT_SCANCODE_CONFIG;
 import static top.qwertycxz.keybind.ConfigHandler.pressOptions;
 import static top.qwertycxz.keybind.ConfigHandler.releaseOptions;
 import static top.qwertycxz.keybind.ConfigHandler.scancodesOptions;
-import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.config.options.ConfigInteger;

@@ -12,6 +12,8 @@ import static java.nio.file.Files.createDirectories;
 import static net.fabricmc.loader.api.FabricLoader.getInstance;
 import static net.minecraft.client.resources.language.I18n.get;
 import static org.apache.logging.log4j.LogManager.getLogger;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 import static top.qwertycxz.keybind.KeyBind.KEYBIND;
 
 import com.google.gson.JsonObject;
@@ -28,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Logger;
 import top.qwertycxz.keybind.hotkey.add.AddHotkeyCallback;
-import top.qwertycxz.keybind.hotkey.custom.Press;
-import top.qwertycxz.keybind.hotkey.custom.Release;
+import top.qwertycxz.keybind.hotkey.custom.CustomCallback;
 import top.qwertycxz.keybind.hotkey.custom.CustomKeybind;
 
 public class ConfigHandler implements IConfigHandler {
@@ -79,14 +80,14 @@ public class ConfigHandler implements IConfigHandler {
 				final ConfigHotkey pressRaw = pressOptions.get(i);
 				final ConfigHotkey pressNew = new ConfigHotkey(id, pressRaw.getStringValue(), "$capital.ConfigHandler.Press");
 				final IKeybind pressKeybind = pressNew.getKeybind();
-				pressKeybind.setCallback(new Press(scancode));
+				pressKeybind.setCallback(new CustomCallback(GLFW_PRESS, scancode));
 				pressKeybind.setSettings(pressRaw.getKeybind().getSettings());
 				pressOptions.set(i, pressNew);
 
 				final ConfigHotkey releaseRaw = releaseOptions.get(i);
 				final ConfigHotkey releaseNew = new ConfigHotkey(id, releaseRaw.getStringValue(), "$capital.ConfigHandler.Release");
 				final IKeybind releaseKeybind = releaseNew.getKeybind();
-				releaseKeybind.setCallback(new Release(scancode));
+				releaseKeybind.setCallback(new CustomCallback(GLFW_RELEASE, scancode));
 				releaseKeybind.setSettings(releaseRaw.getKeybind().getSettings());
 				releaseOptions.set(i, releaseNew);
 			}

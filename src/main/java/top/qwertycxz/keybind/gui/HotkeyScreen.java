@@ -11,8 +11,9 @@ import static top.qwertycxz.keybind.ConfigHandler.releaseOptions;
 import static top.qwertycxz.keybind.ConfigHandler.scancodesOptions;
 import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_LEFT;
 import static top.qwertycxz.keybind.gui.GenericScreen.PADDING_TOP;
-import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
-import static top.qwertycxz.keybind.hotkey.custom.Press.WINDOW;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.WINDOW;
+
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigString;
@@ -28,10 +29,10 @@ public class HotkeyScreen extends GuiConfigsBase {
 	public static final String ID = "id";
 	public boolean dialog = false;
 	public Style idStyle = EMPTY;
-	private final boolean pressOnClose;
 	public final int index;
 	private final ConfigString id;
 	private final ConfigHotkey press;
+	private final boolean pressOnClose;
 	private final ConfigHotkey release;
 	private final ConfigInteger scancode;
 

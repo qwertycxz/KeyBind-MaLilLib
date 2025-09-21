@@ -2,7 +2,7 @@ package top.qwertycxz.keybind.gui;
 
 import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_GENERIC;
 import static top.qwertycxz.keybind.ConfigHandler.GENERIC_OPTIONS;
-import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;

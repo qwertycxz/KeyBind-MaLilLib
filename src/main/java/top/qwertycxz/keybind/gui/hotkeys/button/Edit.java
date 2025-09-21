@@ -1,6 +1,6 @@
 package top.qwertycxz.keybind.gui.hotkeys.button;
 
-import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;

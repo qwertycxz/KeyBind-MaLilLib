@@ -32,16 +32,16 @@ class Entry extends WidgetConfigOption {
 	@Override
 	protected void addLabel(final int x, final int y, final int width, final int height, final int color, final String... lines) {
 		switch (listIndex) {
-			case 1:
+			case 1 :
 				super.addLabel(x, y, width, height, color, "$capital.Entry.Press");
 				break;
-			case 2:
+			case 2 :
 				super.addLabel(x, y, width, height, color, "$capital.Entry.Release");
 				break;
-			case 3:
+			case 3 :
 				super.addLabel(x, y, width, height, color, "$capital.Entry.Scancode");
 				break;
-			default:
+			default :
 				super.addLabel(x, y, width, height, color, lines);
 		}
 	}

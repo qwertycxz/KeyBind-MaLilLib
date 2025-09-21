@@ -1,6 +1,6 @@
 package top.qwertycxz.keybind.gui.hotkey;
 
-import static top.qwertycxz.keybind.hotkey.custom.Press.CLIENT;
+import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.interfaces.IDialogHandler;
