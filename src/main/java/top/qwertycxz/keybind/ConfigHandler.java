@@ -4,7 +4,6 @@ import static com.google.common.collect.ImmutableList.of;
 import static com.google.common.collect.Lists.transform;
 import static fi.dy.masa.malilib.config.ConfigUtils.readConfigBase;
 import static fi.dy.masa.malilib.config.ConfigUtils.writeConfigBase;
-import static fi.dy.masa.malilib.config.ConfigUtils.writeHotkeys;
 import static fi.dy.masa.malilib.hotkeys.KeybindSettings.GUI;
 import static fi.dy.masa.malilib.util.JsonUtils.parseJsonFile;
 import static fi.dy.masa.malilib.util.JsonUtils.writeJsonToFile;
@@ -36,21 +35,21 @@ import top.qwertycxz.keybind.hotkey.custom.CustomKeybind;
 public class ConfigHandler implements IConfigHandler {
 	public static final ConfigHotkey ADD_HOTKEY_CONFIG = new ConfigHotkey("$capital.ConfigHandler.AddHotkey.Name", "", GUI, "$capital.ConfigHandler.AddHotkey.Comment");
 	public static final IKeybind ADD_HOTKEY_KEYBIND = ADD_HOTKEY_CONFIG.getKeybind();
-	private static final ConfigStringList HOTKEYS_CONFIG = new ConfigStringList("$capital.ConfigHandler.Hotkeys.Name", of(), "$capital.ConfigHandler.Hotkeys.Comment");
-	public static final List<String> HOTKEY_LIST = HOTKEYS_CONFIG.getStrings();
+	private static final ConfigStringList HOTKEY_CONFIG = new ConfigStringList("$capital.ConfigHandler.Hotkeys.Name", of(), "$capital.ConfigHandler.Hotkeys.Comment");
+	public static final List<String> HOTKEY_LIST = HOTKEY_CONFIG.getStrings();
 	public static final ConfigInteger NEXT_SCANCODE_CONFIG = new ConfigInteger("$capital.ConfigHandler.NextScancode.Name", 1000, "$capital.ConfigHandler.NextScancode.Comment");
-	public static final List<ConfigBase<?>> GENERIC_OPTIONS = of(ADD_HOTKEY_CONFIG, HOTKEYS_CONFIG, NEXT_SCANCODE_CONFIG);
+	public static final String GENERIC_CATEGORY = "Generic";
+	private static final List<ConfigBase<?>> GENERIC_OPTIONS = of(ADD_HOTKEY_CONFIG, HOTKEY_CONFIG, NEXT_SCANCODE_CONFIG);
+	private static final String PRESS_CATEGORY = "Press";
 	public static ArrayList<ConfigHotkey> pressOptions = new ArrayList<>();
+	private static final String RELEASE_CATEGORY = "Release";
 	public static ArrayList<ConfigHotkey> releaseOptions = new ArrayList<>();
+	private static final String SCANCODE_CATEGORY = "Scancodes";
 	public static ArrayList<ConfigInteger> scancodesOptions = new ArrayList<>();
-	public static final String CATEGORY_GENERIC = "Generic";
-	private static final String CATEGORY_PRESS = "Press";
-	private static final String CATEGORY_RELEASE = "Release";
-	private static final String CATEGORY_SCANCODES = "Scancodes";
 	private static final Path CONFIG_DIR = getInstance().getConfigDir().resolve("$capital");
 	private static final File CONFIG_FILE = CONFIG_DIR.resolve("config.json").toFile();
 	private static final Logger LOGGER = getLogger(ConfigHandler.class);
-	private static CustomKeybind hotkeysKeybind;
+	private static CustomKeybind keybind;
 
 	static {
 		ADD_HOTKEY_KEYBIND.setCallback(new AddHotkeyCallback());
@@ -59,18 +58,18 @@ public class ConfigHandler implements IConfigHandler {
 	@Override
 	public void load() {
 		try {
-			KEYBIND.unregisterKeybindProvider(hotkeysKeybind);
+			KEYBIND.unregisterKeybindProvider(keybind);
 			final JsonObject config = parseJsonFile(CONFIG_FILE).getAsJsonObject();
-			readConfigBase(config, CATEGORY_GENERIC, GENERIC_OPTIONS);
+			readConfigBase(config, GENERIC_CATEGORY, GENERIC_OPTIONS);
 
 			scancodesOptions = new ArrayList<>(transform(HOTKEY_LIST, hotkey -> new ConfigInteger(hotkey, 0, "")));
-			readConfigBase(config, CATEGORY_SCANCODES, scancodesOptions);
+			readConfigBase(config, SCANCODE_CATEGORY, scancodesOptions);
 
 			List<ConfigHotkey> hotkeys = transform(HOTKEY_LIST, hotkey -> new ConfigHotkey(hotkey, "", ""));
 			pressOptions = new ArrayList<>(hotkeys);
 			releaseOptions = new ArrayList<>(hotkeys);
-			readConfigBase(config, CATEGORY_PRESS, pressOptions);
-			readConfigBase(config, CATEGORY_RELEASE, releaseOptions);
+			readConfigBase(config, PRESS_CATEGORY, pressOptions);
+			readConfigBase(config, RELEASE_CATEGORY, releaseOptions);
 
 			for (int i = 0; i < HOTKEY_LIST.size(); i++) {
 				final String id = HOTKEY_LIST.get(i);
@@ -92,8 +91,8 @@ public class ConfigHandler implements IConfigHandler {
 				releaseOptions.set(i, releaseNew);
 			}
 
-			hotkeysKeybind = new CustomKeybind(pressOptions, releaseOptions);
-			KEYBIND.registerKeybindProvider(hotkeysKeybind);
+			keybind = new CustomKeybind(pressOptions, releaseOptions);
+			KEYBIND.registerKeybindProvider(keybind);
 			KEYBIND.updateUsedKeys();
 		}
 		catch (final Throwable e) {
@@ -107,10 +106,10 @@ public class ConfigHandler implements IConfigHandler {
 			createDirectories(CONFIG_DIR);
 			final JsonObject json = new JsonObject();
 
-			writeConfigBase(json, CATEGORY_GENERIC, GENERIC_OPTIONS);
-			writeHotkeys(json, CATEGORY_PRESS, pressOptions);
-			writeHotkeys(json, CATEGORY_RELEASE, releaseOptions);
-			writeConfigBase(json, CATEGORY_SCANCODES, scancodesOptions);
+			writeConfigBase(json, GENERIC_CATEGORY, GENERIC_OPTIONS);
+			writeConfigBase(json, PRESS_CATEGORY, pressOptions);
+			writeConfigBase(json, RELEASE_CATEGORY, releaseOptions);
+			writeConfigBase(json, SCANCODE_CATEGORY, scancodesOptions);
 			writeJsonToFile(json, CONFIG_FILE);
 		}
 		catch (final IOException e) {

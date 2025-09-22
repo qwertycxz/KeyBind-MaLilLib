@@ -66,7 +66,6 @@ public class HotkeyScreen extends GuiConfigsBase {
 	public boolean onKeyTyped(final int key, final int scancode, final int modifiers) {
 		if (idStyle == DUPLICATE && key == 256) return true;
 		final boolean success = super.onKeyTyped(key, scancode, modifiers);
-		System.out.println(pressOnClose + " " + key);
 		if (pressOnClose && key == 256) {
 			int newScancode = this.scancode.getIntegerValue();
 			CLIENT.keyboardHandler.keyPress(WINDOW, newScancode, newScancode, GLFW_PRESS, 0);

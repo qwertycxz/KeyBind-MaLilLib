@@ -1,6 +1,6 @@
 package top.qwertycxz.keybind.gui.navigate;
 
-import static top.qwertycxz.keybind.gui.GenericScreen.CATEGORY_HOTKEYS;
+import static top.qwertycxz.keybind.gui.GenericScreen.HOTKEY_CATEGORY;
 import static top.qwertycxz.keybind.gui.GenericScreen.category;
 import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
@@ -18,7 +18,7 @@ public class HotkeysButton implements IButtonActionListener {
 
 	@Override
 	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
-		category = CATEGORY_HOTKEYS;
+		category = HOTKEY_CATEGORY;
 		CLIENT.setScreen(new HotkeysScreen(parent));
 	}
 }

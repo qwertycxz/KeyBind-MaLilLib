@@ -1,6 +1,6 @@
 package top.qwertycxz.keybind.gui.navigate;
 
-import static top.qwertycxz.keybind.ConfigHandler.CATEGORY_GENERIC;
+import static top.qwertycxz.keybind.ConfigHandler.GENERIC_CATEGORY;
 import static top.qwertycxz.keybind.gui.GenericScreen.category;
 import static top.qwertycxz.keybind.hotkey.custom.CustomCallback.CLIENT;
 
@@ -18,7 +18,7 @@ public class GenericButton implements IButtonActionListener {
 
 	@Override
 	public void actionPerformedWithButton(final ButtonBase button, final int mouse) {
-		category = CATEGORY_GENERIC;
+		category = GENERIC_CATEGORY;
 		CLIENT.setScreen(new GenericScreen(parent));
 	}
 }
