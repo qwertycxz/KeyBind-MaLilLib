@@ -94,6 +94,7 @@ public class ConfigHandler implements IConfigHandler {
 
 			hotkeysKeybind = new CustomKeybind(pressOptions, releaseOptions);
 			KEYBIND.registerKeybindProvider(hotkeysKeybind);
+			KEYBIND.updateUsedKeys();
 		}
 		catch (final Throwable e) {
 			LOGGER.warn(get("$capital.ConfigHandler.LoadError"), e);

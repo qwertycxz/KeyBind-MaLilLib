@@ -37,7 +37,7 @@ public class HotkeyScreen extends GuiConfigsBase {
 	private final ConfigInteger scancode;
 
 	public HotkeyScreen(final int index, final Screen parent, final boolean pressOnClose) {
-		super(PADDING_LEFT, PADDING_TOP, "$name", null, "$capital.HotkeyScreen.Title");
+		super(PADDING_LEFT, PADDING_TOP, "$name", parent, "$capital.HotkeyScreen.Title");
 		press = pressOptions.get(index);
 		release = releaseOptions.get(index);
 		scancode = scancodesOptions.get(index);
@@ -65,20 +65,17 @@ public class HotkeyScreen extends GuiConfigsBase {
 	@Override
 	public boolean onKeyTyped(final int key, final int scancode, final int modifiers) {
 		if (idStyle == DUPLICATE && key == 256) return true;
-		return super.onKeyTyped(key, scancode, modifiers);
+		final boolean success = super.onKeyTyped(key, scancode, modifiers);
+		System.out.println(pressOnClose + " " + key);
+		if (pressOnClose && key == 256) {
+			int newScancode = this.scancode.getIntegerValue();
+			CLIENT.keyboardHandler.keyPress(WINDOW, newScancode, newScancode, GLFW_PRESS, 0);
+		}
+		return success;
 	}
 
 	@Override
 	protected void buildConfigSwitcher() {}
-
-	@Override
-	protected void closeGui(boolean showParent) {
-		super.closeGui(showParent);
-		int key = scancode.getIntegerValue();
-		if (pressOnClose) {
-			CLIENT.keyboardHandler.keyPress(WINDOW, key, key, GLFW_PRESS, 0);
-		}
-	}
 
 	@Override
 	protected Entries createListWidget(final int listX, final int listY) {
